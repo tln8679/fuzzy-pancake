@@ -21,7 +21,7 @@ def main():
     print ("\nVolumes attached to " +  instance.id + ": ")
     for v in volumes: print(v)
 
-    decision = input("Do you want to detach these volumes (YES/NO)?").strip
+    decision = input("Do you want to detach these volumes (YES/NO)?").strip()
     while decision is not "YES" or decision is not "NO":
         decision = input("Invalid input. Enter \"YES\" or \"NO\"").strip()
     if decision is "NO": 
