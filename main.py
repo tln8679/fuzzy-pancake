@@ -67,16 +67,20 @@ def main():
     instance.wait_until_stopped()
     # TODO: Detach volume(s)
     print("Now detaching volumes...")
+    snaps_needed = 0
     for v in volumes: 
+        snaps_needed += 1
         response = instance.detach_volume(
             Force=False,
             VolumeId=v.id,
         )
         print(response)
     # TODO: Create volume from snapshot(s)
-    snaps_needed = len(volumes)
-    print("You need to select: " + snaps_needed +" snapshots")
-    # All snapshots created from the associated volume we just detached
+    print("You need to select: " + str(snaps_needed) +" snapshots")
+    # All snapshots created from the associated volume(s) we just detached
+    # TODO: Replace each detached volume with only volumes created from viable snapshots,
+    #       where a viable snapshot is a snpashot that was taken from the exact volume that was detached.
+    #       OpenEMR 5.01 has two devices attached so we want to make sure only the correct snapshots are used for each volume 
     s_iterator = ec2.snapshots.filter(
         OwnerIds=[
             account_id,
